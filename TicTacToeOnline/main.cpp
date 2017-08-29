@@ -15,11 +15,13 @@ int main()
 	{
 		std::cout << "Error: ";
 		std::cout << e.what() << std::endl;
+		std::system("PAUSE");
 	}
 	catch (std::exception & e)
 	{
 		std::cout << "Error: ";
 		std::cout << e.what() << std::endl;
+		std::system("PAUSE");
 	}
     return EXIT_SUCCESS;
 }
