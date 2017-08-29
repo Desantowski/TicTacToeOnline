@@ -1,7 +1,7 @@
 #pragma once
 #include <exception>
 #include <string>
-class Exception : public std::exception
+class Exception : std::exception
 {
 	std::string mMessage;
 public:
