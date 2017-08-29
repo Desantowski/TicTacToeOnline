@@ -1,8 +1,8 @@
 #include "Game.h"
 
-Game::Game() : m_window(new sf::RenderWindow(sf::VideoMode(800, 600), "Tic Tac Toe Online"))
+Game::Game() : m_window{ new sf::RenderWindow{sf::VideoMode{ 800, 600 }, "Tic Tac Toe Online"} }, m_board{ new Board{sf::Vector2f{800.f,600.f}} }
 {
-
+	m_window->setFramerateLimit(30);
 }
 
 Game::~Game()
@@ -10,7 +10,6 @@ Game::~Game()
 }
 
 void Game::run() {
-    m_window->setFramerateLimit(30);
 
     while (m_window->isOpen())
 	{
@@ -20,6 +19,7 @@ void Game::run() {
 		}
 
 		m_window->clear(sf::Color::White);
+		m_board->draw(*m_window);
 		m_window->display();
     }
 }
