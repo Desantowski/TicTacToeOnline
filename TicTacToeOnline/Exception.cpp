@@ -1,6 +1,6 @@
 #include "Exception.h"
 
-Exception::Exception(std::string message) : std::exception{ message.c_str() }
+Exception::Exception(std::string errorMessage) : std::exception{ errorMessage.c_str() }
 {
 }
 
