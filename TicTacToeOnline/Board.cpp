@@ -4,25 +4,27 @@ const std::unique_ptr<sf::Texture> Board::mFieldNullPtr{ std::make_unique<sf::Te
 const std::unique_ptr<sf::Texture> Board::mFieldOPtr{ std::make_unique<sf::Texture>() };
 const std::unique_ptr<sf::Texture> Board::mFieldXPtr{ std::make_unique<sf::Texture>() };
 
-Board::Board(sf::Vector2f windowSize) 
+void Board::prepareBoard()
 {
-	constexpr float fieldHeight{ 100 }, fieldWidth{ 100 };
-
 	if (!mFieldOPtr->loadFromFile("img/o.bmp")) throw std::exception("Loading failed: img/o.bmp");
 	if (!mFieldXPtr->loadFromFile("img/x.bmp")) throw std::exception("Loading failed: img/x.bmp");
 	if (!mFieldNullPtr->loadFromFile("img/nic.bmp")) throw std::exception("Loading failed: img/nic.bmp");
-	
+}
+
+
+Board::Board(sf::Vector2f windowSize) 
+{
 	for (unsigned char i = 0; i < 9; i++)
 	{
-		sf::FloatRect pos{mLeftTop.x+(fieldHeight * (i%3)),mLeftTop.y+(fieldWidth * static_cast<float>(std::floor(i/3))), fieldHeight, fieldWidth};
+		sf::FloatRect pos{mLeftTop.x+(mFieldHeight * (i%3)),mLeftTop.y+(mFieldWidth * static_cast<float>(std::floor(i/3))), mFieldHeight, mFieldWidth};
 		mFields.push_back(Field{ i,pos,*mFieldNullPtr });
 	}
 }
 
-
 Board::~Board()
 {
 }
+
 
 void Board::draw(sf::RenderTarget & target)
 {
@@ -54,5 +56,10 @@ sf::Texture& Board::getTextureByType(Player::Type playerType)
 
 Field& Board::getFieldByPosition(sf::Vector2f position)
 {
-	return mFields[0];
+	auto clickedNotAtBoard = (position.x < mLeftTop.x || position.y < mLeftTop.y || position.x >(mLeftTop.x + 3 * mFieldWidth) || position.y >(mLeftTop.y + 3 * mFieldHeight));
+	if (clickedNotAtBoard)
+		throw std::exception("");
+	unsigned char row = std::floor((position.x - mLeftTop.x) / mFieldWidth);
+	unsigned char column = std::floor(position.y - mLeftTop.y) / mFieldHeight);
+	return mFields[(row * 3) + column];
 }
