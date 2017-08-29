@@ -1,20 +1,20 @@
 #include "Board.h"
 
-const std::unique_ptr<sf::Texture> Board::mFieldNullPtr{ std::make_unique<sf::Texture>(new sf::Texture) };
-const std::unique_ptr<sf::Texture> Board::mFieldOPtr{ std::make_unique<sf::Texture>(new sf::Texture) };
-const std::unique_ptr<sf::Texture> Board::mFieldXPtr{ std::make_unique<sf::Texture>(new sf::Texture) };
+const std::unique_ptr<sf::Texture> Board::mFieldNullPtr{ std::make_unique<sf::Texture>() };
+const std::unique_ptr<sf::Texture> Board::mFieldOPtr{ std::make_unique<sf::Texture>() };
+const std::unique_ptr<sf::Texture> Board::mFieldXPtr{ std::make_unique<sf::Texture>() };
 
-Board::Board(sf::Vector2f windowSize)
+Board::Board(sf::Vector2f windowSize) 
 {
-	constexpr unsigned int fieldHeight{ 100 }, fieldWidth{ 100 };
+	constexpr float fieldHeight{ 100 }, fieldWidth{ 100 };
 
 	mFieldOPtr->loadFromFile("img/o.bmp");
 	mFieldXPtr->loadFromFile("img/x.bmp");
 	mFieldNullPtr->loadFromFile("img/nic.bmp");
 	
-	for (unsigned int i = 0; i < 9; i++)
+	for (unsigned char i = 0; i < 9; i++)
 	{
-		sf::FloatRect pos{mLeftTop.x+(fieldHeight * (i%3)),mLeftTop.y+(fieldWidth * std::floor(i/3)), fieldHeight, fieldWidth};
+		sf::FloatRect pos{mLeftTop.x+(fieldHeight * (i%3)),mLeftTop.y+(fieldWidth * static_cast<float>(std::floor(i/3))), fieldHeight, fieldWidth};
 		mFields.push_back(Field{ i,pos,*mFieldNullPtr });
 	}
 }
@@ -54,4 +54,5 @@ sf::Texture& Board::getTextureByType(Player::Type playerType)
 
 Field& Board::getFieldByPosition(sf::Vector2f position)
 {
+	return Field{ 0,sf::FloatRect{0.f,0.f,0.f,0.f},*mFieldNullPtr };
 }
