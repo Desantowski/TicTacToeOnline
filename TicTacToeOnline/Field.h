@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "Player.h"
+
 class Field : public sf::Sprite
 {
 	enum Type
@@ -11,7 +12,7 @@ class Field : public sf::Sprite
 	};
 
 public:
-	Field(unsigned char identifier, sf::FloatRect position, sf::Texture & texture);
+	Field(sf::FloatRect position, sf::Texture & texture);
 	~Field();
 };
 
