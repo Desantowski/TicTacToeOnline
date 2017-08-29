@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include <array>
+#include <cmath>
 #include "Player.h"
 #include "Field.h"
 

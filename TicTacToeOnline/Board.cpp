@@ -54,5 +54,5 @@ sf::Texture& Board::getTextureByType(Player::Type playerType)
 
 Field& Board::getFieldByPosition(sf::Vector2f position)
 {
-	return Field{ 0,sf::FloatRect{0.f,0.f,0.f,0.f},*mFieldNullPtr };
+	return mFields[0];
 }
