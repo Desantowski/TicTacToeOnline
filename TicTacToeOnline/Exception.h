@@ -3,9 +3,11 @@
 #include <string>
 class Exception : public std::exception
 {
+	std::string mMessage;
 public:
 	Exception(std::string message);
 	~Exception();
+	std::string what();
 };
 
 class FileNotFoundException : public Exception
