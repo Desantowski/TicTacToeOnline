@@ -2,6 +2,14 @@
 
 Game::Game() : m_window(new sf::RenderWindow(sf::VideoMode(800, 600), "Tic Tac Toe Online"))
 {
+
+}
+
+Game::~Game()
+{
+}
+
+void Game::run() {
     m_window->setFramerateLimit(30);
 
     while (m_window->isOpen())
@@ -14,8 +22,4 @@ Game::Game() : m_window(new sf::RenderWindow(sf::VideoMode(800, 600), "Tic Tac T
 		m_window->clear(sf::Color::White);
 		m_window->display();
     }
-}
-
-Game::~Game()
-{
 }

@@ -7,8 +7,10 @@ class Game
 public:
 	Game();
 	~Game();
+
+	void run();
 private:
-    sf::RenderWindow * m_window;
+    std::unique_ptr<sf::RenderWindow> m_window;
     sf::Event event;
 };
 
