@@ -59,7 +59,7 @@ Field& Board::getFieldByPosition(sf::Vector2f position)
 	auto clickedNotAtBoard = (position.x < mLeftTop.x || position.y < mLeftTop.y || position.x >(mLeftTop.x + 3 * mFieldWidth) || position.y >(mLeftTop.y + 3 * mFieldHeight));
 	if (clickedNotAtBoard)
 		throw std::exception("");
-	unsigned char row = std::floor((position.x - mLeftTop.x) / mFieldWidth);
-	unsigned char column = std::floor(position.y - mLeftTop.y) / mFieldHeight);
+	auto row = static_cast<int>(std::floor((position.x - mLeftTop.x) / mFieldWidth));
+	auto column = static_cast<int>(std::floor((position.y - mLeftTop.y) / mFieldHeight));
 	return mFields[(row * 3) + column];
 }
