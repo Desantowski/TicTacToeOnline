@@ -8,9 +8,9 @@ Board::Board(sf::Vector2f windowSize)
 {
 	constexpr float fieldHeight{ 100 }, fieldWidth{ 100 };
 
-	mFieldOPtr->loadFromFile("img/o.bmp");
-	mFieldXPtr->loadFromFile("img/x.bmp");
-	mFieldNullPtr->loadFromFile("img/nic.bmp");
+	if (!mFieldOPtr->loadFromFile("img/o.bmp")) throw std::exception("Loading failed: img/o.bmp");
+	if (!mFieldXPtr->loadFromFile("img/x.bmp")) throw std::exception("Loading failed: img/x.bmp");
+	if (!mFieldNullPtr->loadFromFile("img/nic.bmp")) throw std::exception("Loading failed: img/nic.bmp");
 	
 	for (unsigned char i = 0; i < 9; i++)
 	{
