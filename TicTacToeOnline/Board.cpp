@@ -6,9 +6,9 @@ const std::unique_ptr<sf::Texture> Board::mFieldXPtr{ std::make_unique<sf::Textu
 
 void Board::prepareBoard()
 {
-	if (!mFieldOPtr->loadFromFile("img/o.bmp")) throw std::exception("Loading failed: img/o.bmp");
-	if (!mFieldXPtr->loadFromFile("img/x.bmp")) throw std::exception("Loading failed: img/x.bmp");
-	if (!mFieldNullPtr->loadFromFile("img/nic.bmp")) throw std::exception("Loading failed: img/nic.bmp");
+	if (!mFieldOPtr->loadFromFile("img/o.bmp")) throw FileNotFoundException("img/o.bmp");
+	if (!mFieldXPtr->loadFromFile("img/x.bmp")) throw FileNotFoundException("img/x.bmp");
+	if (!mFieldNullPtr->loadFromFile("img/nic.bmp")) throw FileNotFoundException("img/nic.bmp");
 }
 
 
@@ -60,7 +60,7 @@ Field& Board::getFieldByPosition(sf::Vector2f position)
 {
 	auto clickedNotAtBoard = (position.x < mLeftTop.x || position.y < mLeftTop.y || position.x >(mLeftTop.x + 3 * mFieldWidth) || position.y >(mLeftTop.y + 3 * mFieldHeight));
 	if (clickedNotAtBoard)
-		throw std::exception("Cannot find field. CNAB error");
+		throw ClickedNotAtBoardException();
 	auto row = static_cast<int>(std::floor((position.x - mLeftTop.x) / mFieldWidth));
 	auto column = static_cast<int>(std::floor((position.y - mLeftTop.y) / mFieldHeight));
 	return mFields[(row * 3) + column];

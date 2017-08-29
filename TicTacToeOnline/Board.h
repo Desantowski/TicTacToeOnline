@@ -2,6 +2,7 @@
 #include <SFML\Graphics.hpp>
 #include <array>
 #include <cmath>
+#include "Exception.h"
 #include "Player.h"
 #include "Field.h"
 
