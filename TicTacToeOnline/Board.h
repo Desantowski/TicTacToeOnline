@@ -10,18 +10,19 @@ class Board
 	static const std::unique_ptr<sf::Texture> mFieldXPtr;
 	static const std::unique_ptr<sf::Texture> mFieldOPtr;
 	static const std::unique_ptr<sf::Texture> mFieldNullPtr;
-	static constexpr float mFieldHeight{ 100 }, mFieldWidth{ 100 };
+	static constexpr float mFieldHeight{ 100.f }, mFieldWidth{ 100.f };
 
+	
 	Field& getFieldByPosition(sf::Vector2f position);
 	sf::Texture& getTextureByType(Player::Type playerType);
 
 	std::vector<Field> mFields;
-	sf::Vector2f mLeftTop{ 300,400 };
+	sf::Vector2f mLeftTop;
 
 public:
 	static void prepareBoard();
 
-	
+
 	void draw(sf::RenderTarget & target);
 	void makeMove(Player::Type playerType, sf::Vector2f position);
 	Board(sf::Vector2f windowSize);

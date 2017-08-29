@@ -12,12 +12,14 @@ void Board::prepareBoard()
 }
 
 
-Board::Board(sf::Vector2f windowSize) 
+Board::Board(sf::Vector2f windowSize)
 {
+	mLeftTop.x = (windowSize.x - (3*mFieldHeight)) / 2 + (windowSize.x / 8);
+	mLeftTop.y = (windowSize.y - (3 * mFieldWidth)) / 2;
 	for (unsigned char i = 0; i < 9; i++)
 	{
 		sf::FloatRect pos{mLeftTop.x+(mFieldHeight * (i%3)),mLeftTop.y+(mFieldWidth * static_cast<float>(std::floor(i/3))), mFieldHeight, mFieldWidth};
-		mFields.push_back(Field{ i,pos,*mFieldNullPtr });
+		mFields.push_back(Field{ pos,*mFieldNullPtr });
 	}
 }
 
@@ -58,7 +60,7 @@ Field& Board::getFieldByPosition(sf::Vector2f position)
 {
 	auto clickedNotAtBoard = (position.x < mLeftTop.x || position.y < mLeftTop.y || position.x >(mLeftTop.x + 3 * mFieldWidth) || position.y >(mLeftTop.y + 3 * mFieldHeight));
 	if (clickedNotAtBoard)
-		throw std::exception("");
+		throw std::exception("Cannot find field. CNAB error");
 	auto row = static_cast<int>(std::floor((position.x - mLeftTop.x) / mFieldWidth));
 	auto column = static_cast<int>(std::floor((position.y - mLeftTop.y) / mFieldHeight));
 	return mFields[(row * 3) + column];
