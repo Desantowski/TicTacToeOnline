@@ -18,5 +18,4 @@ public:
 
 private:
 	Type mType;
-	std::unique_ptr<sf::Texture> mTexturePtr;
 };
