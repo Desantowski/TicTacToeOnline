@@ -1,7 +1,7 @@
 #include "Player.h"
 
 
-Player::Player(Type _type) : mType{ _type }
+Player::Player(Type type) : mType{ type }
 {
 }
 

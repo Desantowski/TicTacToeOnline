@@ -11,7 +11,7 @@ public:
 		PLAYER_X,
 	};
 
-	Player(Type _type);
+	Player(Type type);
 	~Player();
 
 	Type getType();
