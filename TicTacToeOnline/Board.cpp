@@ -14,10 +14,10 @@ void Board::prepareBoard()
 }
 
 
-Board::Board(sf::Vector2f windowSize)
+Board::Board(sf::Vector2u windowSize)
 {
-	mLeftTop.x = ((windowSize.x - (3*mFieldHeight)) / 2);
-	mLeftTop.y = ((windowSize.y - (3*mFieldWidth)) / 2) + (windowSize.x / 8);
+	mLeftTop.x = ((static_cast<float>(windowSize.x) - (3*mFieldHeight)) / 2);
+	mLeftTop.y = ((static_cast<float>(windowSize.y) - (3*mFieldWidth)) / 2) + (static_cast<float>(windowSize.y) / 8);
 	for (int i = 0; i < 9; i++)
 	{
 		sf::FloatRect pos{mLeftTop.x+(mFieldHeight * (i%3)),mLeftTop.y+(mFieldWidth * static_cast<float>(std::floor(i/3))), mFieldHeight, mFieldWidth};

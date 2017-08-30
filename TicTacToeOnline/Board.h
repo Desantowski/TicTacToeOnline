@@ -26,6 +26,8 @@ public:
 
 	void draw(sf::RenderTarget & target);
 	void makeMove(Player::Type playerType, sf::Vector2f position);
-	Board(sf::Vector2f windowSize);
+
+	Board(sf::Vector2u windowSize);
+
 	~Board();
 };
