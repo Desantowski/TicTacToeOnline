@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "Board.h"
 
-template<Player EnemyType>
+template<class EnemyType>
 class PlayingState : public GameState
 {
 	std::unique_ptr<Board> m_board;

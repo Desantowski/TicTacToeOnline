@@ -1,18 +1,18 @@
 #include "PlayingState.h"
 
-template<Player& EnemyType>
+template<class EnemyType>
 PlayingState<EnemyType>::PlayingState(sf::Window & window, EnemyType enemy) : m_board{ new Board{window.getSize()} },
 	m_player{ new Player { Player::Type::PLAYER_O } }, 
 	m_enemy{ new EnemyType{ enemy } }
 {
 }
 
-template<Player& EnemyType>
+template<class EnemyType>
 PlayingState<EnemyType>::~PlayingState()
 {
 }
 
-template<Player& EnemyType>
+template<class EnemyType>
 void PlayingState<EnemyType>::processEvents(sf::RenderWindow & source)
 {
 	while (source.pollEvent(m_event)) 
@@ -24,13 +24,13 @@ void PlayingState<EnemyType>::processEvents(sf::RenderWindow & source)
 	}
 }
 
-template<Player& EnemyType>
+template<class EnemyType>
 void PlayingState<EnemyType>::processGraphic(sf::RenderTarget & target)
 {
 	m_board->draw(target);
 }
 
-template<Player& EnemyType>
+template<class EnemyType>
 void PlayingState<EnemyType>::tick()
 {
 	return;
