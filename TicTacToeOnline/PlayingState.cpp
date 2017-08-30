@@ -1,16 +1,19 @@
 #include "PlayingState.h"
 
-
-PlayingState::PlayingState(sf::Window & window) : m_board{ new Board{window.getSize()} }
+template<Player& EnemyType>
+PlayingState<EnemyType>::PlayingState(sf::Window & window, EnemyType enemy) : m_board{ new Board{window.getSize()} },
+	m_player{ new Player { Player::Type::PLAYER_O } }, 
+	m_enemy{ new EnemyType{ enemy } }
 {
 }
 
-
-PlayingState::~PlayingState()
+template<Player& EnemyType>
+PlayingState<EnemyType>::~PlayingState()
 {
 }
 
-void PlayingState::processEvents(sf::RenderWindow & source)
+template<Player& EnemyType>
+void PlayingState<EnemyType>::processEvents(sf::RenderWindow & source)
 {
 	while (source.pollEvent(m_event)) 
 	{
@@ -21,12 +24,14 @@ void PlayingState::processEvents(sf::RenderWindow & source)
 	}
 }
 
-void PlayingState::processGraphic(sf::RenderTarget & target)
+template<Player& EnemyType>
+void PlayingState<EnemyType>::processGraphic(sf::RenderTarget & target)
 {
 	m_board->draw(target);
 }
 
-void PlayingState::tick()
+template<Player& EnemyType>
+void PlayingState<EnemyType>::tick()
 {
 	return;
 }

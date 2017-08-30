@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <thread>
 #include "PlayingState.h"
+#include "BotPlayer.h"
 
 class Game
 {

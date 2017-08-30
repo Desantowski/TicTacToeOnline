@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game() : m_window{ new sf::RenderWindow{sf::VideoMode{ 800, 600 }, "Tic Tac Toe Online"} }, m_state{ new PlayingState{ *m_window } }
+Game::Game() : m_window{ new sf::RenderWindow{sf::VideoMode{ 800, 600 }, "Tic Tac Toe Online"} }, m_state{ new PlayingState<BotPlayer>{ *m_window, BotPlayer{ Player::Type::PLAYER_X } } }
 {
 	m_window->setFramerateLimit(30);
 }
