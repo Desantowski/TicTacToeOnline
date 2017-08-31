@@ -1,7 +1,5 @@
 #include "Board.h"
-#ifdef _DEBUGPRINT
-#include <iostream>
-#endif 
+
 const std::unique_ptr<sf::Texture> Board::mFieldNullPtr{ std::make_unique<sf::Texture>() };
 const std::unique_ptr<sf::Texture> Board::mFieldOPtr{ std::make_unique<sf::Texture>() };
 const std::unique_ptr<sf::Texture> Board::mFieldXPtr{ std::make_unique<sf::Texture>() };
@@ -22,9 +20,6 @@ Board::Board(sf::Vector2u windowSize)
 	{
 		sf::FloatRect pos{mLeftTop.x+(mFieldHeight * (i%3)),mLeftTop.y+(mFieldWidth * static_cast<float>(std::floor(i/3))), mFieldHeight, mFieldWidth};
 		mFields.push_back(Field{ pos,*mFieldNullPtr });
-#ifdef _DEBUGPRINT
-		std::cout << "Creating field nr " << i << " on pos (" << pos.left << ", " << pos.top << ") with size (" << pos.height << ", " << pos.width << ")" << std::endl;
-#endif 
 	}
 }
 
@@ -35,28 +30,23 @@ Board::~Board()
 
 void Board::draw(sf::RenderTarget & target)
 {
-	for (Field & i : mFields)
-	{
-		target.draw(i);
-#ifdef _DEBUGPRINT
-		std::cout << "Drawing field" << std::endl;
-#endif 
-
-	}
-#ifdef _DEBUGPRINT
-	std::cout << "Fields drawen" << std::endl << std::endl;
-#endif
+	for (Field & i : mFields) target.draw(i);
 }
 
-void Board::makeMove(Player::Type playerType, sf::Vector2f position)
+bool Board::makeMove(Player::Type playerType, sf::Vector2f position)
 {
 	try
 	{
-		return getFieldByPosition(position).setTexture(getTextureByType(playerType));
+		Field & moveField = getFieldByPosition(position);
+		if (moveField.getType() != Field::Type::FIELD_NULL)
+			throw std::exception();
+		moveField.setTexture(getTextureByType(playerType));
+		moveField.setType(static_cast<Field::Type>(playerType));
+		return true;
 	}
 	catch (...)
 	{
-		return;
+		return false;
 	}
 }
 
@@ -77,5 +67,32 @@ Field& Board::getFieldByPosition(sf::Vector2f position)
 		throw ClickedNotAtBoardException();
 	auto row = static_cast<int>(std::floor((position.x - mLeftTop.x) / mFieldWidth));
 	auto column = static_cast<int>(std::floor((position.y - mLeftTop.y) / mFieldHeight));
-	return mFields[(row * 3) + column];
+	return mFields[(column * 3) + row];
+}
+
+Field::Type Board::getWinnerType()
+{
+	for (int i = 0; i < 3; i++)
+	{
+		Field::Type winner = mFields[i].getType();
+		if (winner == Field::Type::FIELD_NULL) continue;
+		for (int j = 1; j < 3; j++)
+		{
+			if (mFields[(j * 3) + i].getType() != winner)
+				winner = Field::Type::FIELD_NULL;
+		}
+		if (winner != Field::Type::FIELD_NULL) return winner;
+		else
+		{
+			winner = mFields[i].getType();
+			for (int j = 1; j < 3; j++)
+			{
+				if (mFields[(i * 3) + j].getType() != winner)
+					winner = Field::Type::FIELD_NULL;
+			}
+			if (winner != Field::Type::FIELD_NULL) return winner;
+		}
+	}
+	if (mFields[0].getType() == mFields[4].getType() && mFields[0].getType() == mFields[8].getType() && mFields[0].getType() != Field::Type::FIELD_NULL) return mFields[0].getType();
+	else return Field::Type::FIELD_NULL;
 }

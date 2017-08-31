@@ -25,7 +25,8 @@ public:
 
 
 	void draw(sf::RenderTarget & target);
-	void makeMove(Player::Type playerType, sf::Vector2f position);
+	bool makeMove(Player::Type playerType, sf::Vector2f position);
+	Field::Type getWinnerType();
 
 	Board(sf::Vector2u windowSize);
 
