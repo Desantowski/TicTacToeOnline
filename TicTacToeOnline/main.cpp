@@ -13,13 +13,13 @@ int main()
 	}
 	catch (Exception & e)
 	{
-		std::cout << "Error: ";
+		std::cout << "Error Ex: ";
 		std::cout << e.what() << std::endl;
 		std::system("PAUSE");
 	}
 	catch (std::exception & e)
 	{
-		std::cout << "Error: ";
+		std::cout << "Error std::ex: ";
 		std::cout << e.what() << std::endl;
 		std::system("PAUSE");
 	}
