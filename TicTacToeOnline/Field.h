@@ -4,6 +4,7 @@
 
 class Field : public sf::Sprite
 {
+public:
 	enum Type
 	{
 		FIELD_O = Player::PLAYER_O,
@@ -11,8 +12,13 @@ class Field : public sf::Sprite
 		FIELD_NULL
 	};
 
-public:
 	Field(sf::FloatRect position, sf::Texture & texture);
 	~Field();
+
+	Type getType();
+	void setType(Type);
+
+private:
+	Type mType;
 };
 
