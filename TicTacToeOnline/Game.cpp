@@ -13,7 +13,7 @@ void Game::run() {
     while (m_window->isOpen())
 	{
 		m_state->processEvents(*m_window);
-		m_state->tick();
+		m_state->tick(*m_window);
 
 		m_window->clear(sf::Color::White);
 		m_state->processGraphic(*m_window);
