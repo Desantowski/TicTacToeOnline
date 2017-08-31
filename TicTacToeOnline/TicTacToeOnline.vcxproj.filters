@@ -36,10 +36,10 @@
     <ClCompile Include="GameState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PlayingState.cpp">
+    <ClCompile Include="BotPlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BotPlayer.cpp">
+    <ClCompile Include="PlayingState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
