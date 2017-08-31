@@ -23,3 +23,10 @@ public:
 	ClickedNotAtBoardException();
 	~ClickedNotAtBoardException();
 };
+
+class UnknownEnemyTypeException : public Exception
+{
+public:
+	UnknownEnemyTypeException();
+	~UnknownEnemyTypeException();
+};

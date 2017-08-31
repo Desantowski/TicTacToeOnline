@@ -1,6 +1,6 @@
 #include "Exception.h"
 
-Exception::Exception(std::string errorMessage) : std::exception{ }
+Exception::Exception(std::string errorMessage) : mMessage{ errorMessage }, std::exception{ }
 {
 }
 
@@ -29,5 +29,14 @@ ClickedNotAtBoardException::ClickedNotAtBoardException() : Exception{ "Clicked n
 
 
 ClickedNotAtBoardException::~ClickedNotAtBoardException()
+{
+}
+
+UnknownEnemyTypeException::UnknownEnemyTypeException() : Exception{ "Unknown enemy type!" }
+{
+}
+
+
+UnknownEnemyTypeException::~UnknownEnemyTypeException()
 {
 }
