@@ -15,7 +15,9 @@ class PlayingState : public GameState
 	std::shared_ptr<EnemyType> m_enemy;
 	std::shared_ptr<Player> m_currentPlayer;
 	std::shared_ptr<Player> m_winner;
-
+	std::unique_ptr<sf::Sprite> m_winnerSprite;
+	std::unique_ptr<sf::Texture> m_winnerTexture;
+	
 	std::unique_ptr<sf::Event> m_playerClick;
 
 	bool playerMove()
@@ -26,6 +28,24 @@ class PlayingState : public GameState
 	}
 
 	void enemyMove();
+
+	void endTick(sf::RenderWindow & window)
+	{
+		if (m_winner != nullptr && m_winnerSprite == nullptr)
+		{
+			m_winnerTexture = std::make_unique<sf::Texture>();
+			if (m_winner->getType() == Player::Type::PLAYER_O) m_winnerTexture->loadFromFile("img/osmall.bmp");
+			else  m_winnerTexture->loadFromFile("img/xsmall.bmp");
+			m_winnerSprite = std::make_unique<sf::Sprite>(*m_winnerTexture);
+
+			sf::Vector2f pos(window.getSize());
+			pos.x /= 2;
+			pos.x -= m_winnerTexture->getSize().x / 2;
+			pos.y /= 8;
+
+			m_winnerSprite->setPosition(pos);
+		}
+	}
 
 public:
 	virtual void processEvents(sf::RenderWindow & source) override
@@ -40,17 +60,26 @@ public:
 			{
 				m_playerClick = std::make_unique<sf::Event>( m_event );
 			}
+			else if (m_event.type == sf::Event::KeyPressed && m_winner != nullptr && m_event.key.code == sf::Keyboard::Return)
+			{
+				delete this;
+			}
 		}
 	}
 
 	virtual void processGraphic(sf::RenderTarget & target) override
 	{
 		m_board->draw(target);
+		if (m_winnerSprite   != nullptr) target.draw(*m_winnerSprite);
 	}
 
 	virtual void tick(sf::RenderWindow & window) override
 	{
-		if (m_winner != nullptr) return;
+		if (m_winner != nullptr)
+		{
+			endTick(window);
+			return;
+		}
 		if (m_currentPlayer == m_player)
 		{
 			if (m_playerClick != nullptr)

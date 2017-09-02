@@ -1,7 +1,4 @@
 #include "PlayingState.h"
-#ifdef _DEBUG
-#include <iostream>
-#endif
 
 template<class T>
 void PlayingState<T>::enemyMove()
